@@ -2,15 +2,14 @@ package MyFarm;
 
 /**
  * A lot in a field needs something to be put inside.
- * This  object simulates a  or agriculture.
- * A FarmLot objects at any given time holds exactly one 
+ * This object simulates a or agriculture.
+ * A FarmLot objects at any given time holds exactly one
  *
  * @author Eugene Guillermo
  * @author Johann Uytanlet
  * @version 1.0
  */
-public class Crop
-{
+public class Crop {
     /**
      * cropType is the type of the . Example: Is it a root ?
      * seedName is the name of the species of . Example: Is it a Turnip or a Turnips
@@ -18,18 +17,19 @@ public class Crop
     private String cropType, seedName;
     /**
      * waterLevel is the current amount of water inside the .
-     * waterNeed is the amount of water the  needs to live.
-     * waterBonus is the amount of water the  needs to produce extra.
+     * waterNeed is the amount of water the needs to live.
+     * waterBonus is the amount of water the needs to produce extra.
      * fertilizerLevel is the current amount of fertilizer inside the .
-     * fertilizerNeed is the amount of fertilizer the  needs to live.
-     * fertilizerBonus is the amount of fertilizer the  needs to produce extra.
-     * age is how old the  is IN DAYS.
+     * fertilizerNeed is the amount of fertilizer the needs to live.
+     * fertilizerBonus is the amount of fertilizer the needs to produce extra.
+     * age is how old the is IN DAYS.
      * tillHarvest is how many days TILL HARVEST.
      * yieldLowerBound is the lower bound of how much produce is made.
      * yieldUpperBound is the upper bound of how much produce is made.
-     * sellPrice is how much is the  worth per produce.
+     * sellPrice is how much is the worth per produce.
      */
-    private int waterLevel, waterNeed, waterBonus, fertilizerLevel, fertilizerNeed, fertilizerBonus, age, tillHarvest, yieldLowerBound, yieldUpperBound, sellPrice;
+    private int waterLevel, waterNeed, waterBonus, fertilizerLevel, fertilizerNeed, fertilizerBonus, age, tillHarvest,
+            yieldLowerBound, yieldUpperBound, sellPrice;
     /**
      * canHarvest answers if the crop CAN be HARVESTED?
      * isWithered answers if the crop IS WITHERED?
@@ -39,8 +39,7 @@ public class Crop
     /**
      * Class Constructor.
      */
-    public Crop()
-    {
+    public Crop() {
         this.cropType = "Nothing";
         this.seedName = "Nothing";
         this.waterLevel = 0;
@@ -59,26 +58,24 @@ public class Crop
 
     /**
      * Class Constructor specifying the species of the .
-     * @param Name specified  species
+     * 
+     * @param Name specified species
      */
-    public Crop(String Name)
-    {
+    public Crop(String Name) {
         plantCrop(Name);
     }
 
     /**
      * Changes the crop to the specified species
-     * @param Name specified  species
+     * 
+     * @param Name specified species
      */
-    public void plantCrop(String Name)
-    {
+    public void plantCrop(String Name) {
         this.seedName = Name;
 
-        // Assigns stats of the  based on the name given.
-        switch (seedName)
-        {
-            case "Turnip":
-            {
+        // Assigns stats of the based on the name given.
+        switch (seedName) {
+            case "Turnip": {
                 this.cropType = "Root ";
                 this.tillHarvest = 2;
                 this.waterLevel = 0;
@@ -96,8 +93,7 @@ public class Crop
                 break;
             }
 
-            case "Carrot":
-            {
+            case "Carrot": {
                 this.cropType = "Root ";
                 this.tillHarvest = 3;
                 this.waterLevel = 0;
@@ -115,8 +111,7 @@ public class Crop
                 break;
             }
 
-            case "Potato":
-            {
+            case "Potato": {
                 this.cropType = "Root ";
                 this.tillHarvest = 5;
                 this.waterLevel = 0;
@@ -134,8 +129,7 @@ public class Crop
                 break;
             }
 
-            case "Rose":
-            {
+            case "Rose": {
                 this.cropType = "Flower";
                 this.tillHarvest = 1;
                 this.waterLevel = 0;
@@ -153,8 +147,7 @@ public class Crop
                 break;
             }
 
-            case "Turnips":
-            {
+            case "Turnips": {
                 this.cropType = "Flower";
                 this.tillHarvest = 2;
                 this.waterLevel = 0;
@@ -172,8 +165,7 @@ public class Crop
                 break;
             }
 
-            case "Sunflower":
-            {
+            case "Sunflower": {
                 this.cropType = "Flower";
                 this.tillHarvest = 3;
                 this.waterLevel = 0;
@@ -191,8 +183,7 @@ public class Crop
                 break;
             }
 
-            case "Mango":
-            {
+            case "Mango": {
                 this.cropType = "Fruit Tree";
                 this.tillHarvest = 10;
                 this.waterLevel = 0;
@@ -210,8 +201,7 @@ public class Crop
                 break;
             }
 
-            case "Apple":
-            {
+            case "Apple": {
                 this.cropType = "Fruit Tree";
                 this.tillHarvest = 10;
                 this.waterLevel = 0;
@@ -229,8 +219,7 @@ public class Crop
                 break;
             }
 
-            default:
-            {
+            default: {
                 this.cropType = "Nothing";
                 this.seedName = "Nothing";
                 this.waterLevel = 0;
@@ -250,60 +239,37 @@ public class Crop
     }
 
     /**
-     * Ages the  by one day.
-     * Also checks whether the  is already harvestable or withered
+     * Ages the by one day.
+     * Also checks whether the is already harvestable or withered
      */
-    public void age()
-    {
+    public void age() {
         // ages by 1 day
         this.age++;
-        // if the  was harvestable the other day but was not harvested
-        // the  becomes withered
-        if (this.canHarvest)
-        {
+        // if the was harvestable the other day but was not harvested
+        // the becomes withered
+        if (this.canHarvest) {
             this.canHarvest = false;
             this.isWithered = true;
         }
 
-        // if the  is not yet harvestable
-        else
-        {
+        // if the is not yet harvestable
+        else {
             // decrement the number of days till it is Harvestable
             this.tillHarvest--;
             // if the number of days till harvest is 0, it is harvestable
-            if (this.tillHarvest == 0)
-            {
-                // not enough water, the  withers.
+            if (this.tillHarvest == 0) {
+                // not enough water, the withers.
                 if (this.waterLevel < this.waterNeed)
                     this.isWithered = true;
-                // not enough fertilizer, the  withers.
+                // not enough fertilizer, the withers.
                 else if (this.fertilizerLevel < this.fertilizerNeed)
                     this.isWithered = true;
-                // sufficient levels of water and fertilizer, the  is harvestable.
+                // sufficient levels of water and fertilizer, the is harvestable.
                 else
                     this.canHarvest = true;
             }
         }
     }
-
-    /**
-     * Displays the statistics of the  in the terminal
-     */
-    public void displayInfo()
-    {
-        System.out.println("______________________________________");
-        System.out.println("|              Info              |");
-        System.out.println("--------------------------------------");
-        System.out.println(" Name: " + this.seedName);
-        System.out.println(" Type: " + this.cropType);
-        System.out.println("Age: " + this.age);
-        System.out.println("Current Water Level / Fertilizer Level: " + this.waterLevel + " / " + this.fertilizerLevel);
-        System.out.println("Water Need | Bonus Limit: " + this.waterNeed + " | " + this.waterBonus);
-        System.out.println("Fertilizer Need | Bonus Limit: " + this.fertilizerNeed + " | " + this.fertilizerBonus);
-        System.out.println("Days Till Harvest: " + this.tillHarvest);
-        System.out.println("Possible Number of Produce: " + this.yieldLowerBound + " to " + this.yieldUpperBound);
-    }
-
 
     public String getCropType() {
         return cropType;
@@ -315,10 +281,6 @@ public class Crop
 
     public int getWaterLevel() {
         return waterLevel;
-    }
-
-    public void setWaterLevel(int waterLevel) {
-        this.waterLevel = waterLevel;
     }
 
     public int getWaterNeed() {
@@ -333,10 +295,6 @@ public class Crop
         return fertilizerLevel;
     }
 
-    public void setFertilizerLevel(int fertilizerLevel) {
-        this.fertilizerLevel = fertilizerLevel;
-    }
-
     public int getFertilizerNeed() {
         return fertilizerNeed;
     }
@@ -345,20 +303,8 @@ public class Crop
         return fertilizerBonus;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public int getTillHarvest() {
         return tillHarvest;
-    }
-
-    public void setTillHarvest(int tillHarvest) {
-        this.tillHarvest = tillHarvest;
     }
 
     public int getYieldLowerBound() {
@@ -373,20 +319,36 @@ public class Crop
         return canHarvest;
     }
 
-    public int getSellPrice()
-    {
+    public int getSellPrice() {
         return this.sellPrice;
-    }
-
-    public void setCanHarvest(Boolean canHarvest) {
-        this.canHarvest = canHarvest;
     }
 
     public Boolean getIsWithered() {
         return isWithered;
     }
 
-    public void setIsWithered(Boolean withered) {
-        isWithered = withered;
+    public void setWaterLevel(int waterLevel) {
+        this.waterLevel = waterLevel;
+    }
+
+    public void setFertilizerLevel(int fertilizerLevel) {
+        this.fertilizerLevel = fertilizerLevel;
+    }
+
+    /**
+     * Displays the statistics of the in the terminal
+     */
+    public void displayInfo() {
+        System.out.println("______________________________________");
+        System.out.println("|              Info              |");
+        System.out.println("--------------------------------------");
+        System.out.println(" Name: " + this.seedName);
+        System.out.println(" Type: " + this.cropType);
+        System.out.println("Age: " + this.age);
+        System.out.println("Current Water Level / Fertilizer Level: " + this.waterLevel + " / " + this.fertilizerLevel);
+        System.out.println("Water Need | Bonus Limit: " + this.waterNeed + " | " + this.waterBonus);
+        System.out.println("Fertilizer Need | Bonus Limit: " + this.fertilizerNeed + " | " + this.fertilizerBonus);
+        System.out.println("Days Till Harvest: " + this.tillHarvest);
+        System.out.println("Possible Number of Produce: " + this.yieldLowerBound + " to " + this.yieldUpperBound);
     }
 }

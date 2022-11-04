@@ -8,7 +8,7 @@ import java.util.Scanner;
  * 
  * @author Eugene Guillermo
  * @author Johann Uytanlet
- * @version 1.0
+ * @version 1.2
  */
 public class MyFarm {
     public static void main(String[] args) {
@@ -144,11 +144,11 @@ public class MyFarm {
                 System.out.println("GAME OVER :(");
                 System.out.println("You unfortunately do not possess enough coins to buy a turnip seed.");
                 gameOver = true; // end game
-            } else if (farmLand.getOccupancy().equals("Rock") && player.getCoin() < 50) {
+            } if (farmLand.getOccupancy().equals("Rock") && player.getCoin() < 50) {
                 System.out.println("GAME OVER :(");
                 System.out.println("You unfortunately do not possess enough coins to mine the rock.");
                 gameOver = true; // end game
-            } else if (farmLand.getOccupancy().equals("Crop") && farmLand.isItWithered() && player.getCoin() < 7) {
+            } if (farmLand.getOccupancy().equals("Crop") && farmLand.isItWithered() && player.getCoin() < 7) {
                 System.out.println("GAME OVER :(");
                 System.out.println("You unfortunately do not have enough coins to dig out the withered crop.");
                 gameOver = true; // end game

@@ -7,7 +7,7 @@ package MyFarm;
  *
  * @author Eugene Guillermo
  * @author Johann Uytanlet
- * @version 1.0
+ * @version 1.2
  */
 public class Crop {
     /**

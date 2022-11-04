@@ -35,8 +35,7 @@ public class FarmLot {
     public void plow(Player player) {
         if (this.isPlowed) // if the lot is already plowed
             System.out.println("This lot is already plowed.");
-        else if (this.occupancy.equals("Empty")) // if the lot is empty
-        {
+        else if (this.occupancy.equals("Empty")){ // if the lot is empty
             this.isPlowed = true;
             player.gainExperience(0.5);
             System.out.println("Successfully plowed the lot");
@@ -51,22 +50,21 @@ public class FarmLot {
      * @param player given Player
      */
     public void mine(Player player) {
-        if (this.occupancy.equals("Rock")) // if there is a rock in the lot
-        {
-            if (player.getCoin() >= 50) // the player has enough money
-            {
+        if (this.occupancy.equals("Rock")) { // if there is a rock in the lot
+            if (player.getCoin() >= 50) { // the player has enough money
                 player.spendCoin(50);
                 player.gainExperience(15);
                 this.occupancy = ("Empty");
                 System.out.println("Successfully mined the rock");
             } else // the player does not have enough money
                 System.out.println("Not enough coins to mine this rock");
-        } else // there is no rock in the lot
-        {
-            System.out.println("You tried to mine. However, there is no rock to mine in this lot.");
-            player.spendCoin(50);
+        } else { // there is no rock in the lot
+            if (player.getCoin() >= 50) { // the player has enough money
+                System.out.println("You tried to mine. However, there is no rock to mine in this lot.");
+                player.spendCoin(50);
+            } else // the player does not have enough money
+                System.out.println("Not enough coins to mine");
         }
-
     }
 
     /**
@@ -76,10 +74,8 @@ public class FarmLot {
      * @param player given Player
      */
     public void dig(Player player) {
-        if (this.occupancy.equals("Crop") && player.getCoin() >= 7) // if the lot has a and player has enough coins
-        {
-            if (this.crop.getIsWithered()) // crop is already withered
-            {
+        if (this.occupancy.equals("Crop") && player.getCoin() >= 7) { // if the lot has a and player has enough coins
+            if (this.crop.getIsWithered()) { // crop is already withered
                 this.occupancy = "Empty";
                 isPlowed = false;
                 crop = new Crop();
@@ -88,8 +84,7 @@ public class FarmLot {
                 player.gainExperience(2);
             } else // if is not yet withered
             {
-                System.out.println(
-                        "You tried to use the shovel. However, you can't dig out this crop that is alive and well.");
+                System.out.println("You tried to use the shovel. However, you can't dig out this crop that is alive and well.");
                 player.spendCoin(7);
             }
         } else if (player.getCoin() < 7) // not enough coins
@@ -142,14 +137,15 @@ public class FarmLot {
      * @param player given Player
      */
     public void waterCrop(Player player) {
-        if (this.occupancy.equals("Crop")) // there is a crop inside the lot
-        {
-            player.gainExperience(0.5);
-            this.crop.setWaterLevel(this.crop.getWaterLevel() + 1);
-            System.out.println(("Successfully watered the crop"));
+        if (this.occupancy.equals("Crop")) { // there is a crop inside the lot
+            if(!this.crop.getIsWithered()) { // not withered
+                player.gainExperience(0.5);
+                this.crop.setWaterLevel(this.crop.getWaterLevel() + 1);
+                System.out.println(("Successfully watered the crop"));
+            } else // withered
+                System.out.println(("You tried to water a withered crop."));
         } else // there is no crop inside the lot
             System.out.println("There is no crop to water");
-
     }
 
     /**
@@ -159,18 +155,24 @@ public class FarmLot {
      * @param player given Player
      */
     public void fertilizeCrop(Player player) {
-        if (this.occupancy.equals("Crop")) // there is a crop inside the lot
-        {
-            if (player.getCoin() >= 10) // player has enough money
-            {
+        if (this.occupancy.equals("Crop")) { // there is a crop inside the lot
+            if (player.getCoin() >= 10) { // player has enough money
                 player.spendCoin(10);
-                player.gainExperience(4);
-                this.crop.setFertilizerLevel(this.crop.getFertilizerLevel() + 1);
-                System.out.println("Successfully fertilized the crop");
+                if (this.crop.getIsWithered().equals(false)) {
+                    System.out.println("Successfully fertilized the crop");
+                    player.gainExperience(4);
+                    this.crop.setFertilizerLevel(this.crop.getFertilizerLevel() + 1);
+                } else
+                    System.out.println("You wastefully fertilized a withered crop");
             } else // player does not have enough money
                 System.out.println("You don't have enough coins to get fertilizer.");
-        } else // there is no inside the lot
-            System.out.println("There is no crop to fertilize");
+        } else { // there is no crop inside the lot
+            if (player.getCoin() >= 10) { // player has enough money
+                player.spendCoin(10);
+                System.out.println("There is no crop to fertilize, but you put fertilizer anyway");
+            } else
+                System.out.println("You don't have enough coins to get fertilizer.");
+        }
     }
 
     /**
@@ -179,8 +181,7 @@ public class FarmLot {
      * @param player given Player
      */
     public void harvestCrop(Player player) {
-        if (this.crop.getCanHarvest() && occupancy.equals("Crop")) // the crop can be harvested
-        {
+        if (this.crop.getCanHarvest() && occupancy.equals("Crop")) { // the crop can be harvested
             // the random number of produce the crop will give
             int yieldNum = ThreadLocalRandom.current().nextInt(this.crop.getYieldLowerBound(),
                     this.crop.getYieldUpperBound());
@@ -194,8 +195,7 @@ public class FarmLot {
                 waterBonus = harvestTotal * 0.2 * (this.crop.getWaterLevel() - 1);
             // fertilizer level is over the bonus limit
             if (this.crop.getFertilizerLevel() > this.crop.getFertilizerBonus() + player.getFertilizerBonusBonus())
-                fertilizerBonus = harvestTotal * 0.5
-                        * (this.crop.getFertilizerBonus() + player.getFertilizerBonusBonus() - 1);
+                fertilizerBonus = harvestTotal * 0.5 * (this.crop.getFertilizerBonus() + player.getFertilizerBonusBonus() - 1);
             else // equal or under
                 fertilizerBonus = harvestTotal * 0.5 * (this.crop.getFertilizerLevel() - 1);
             double finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
@@ -205,8 +205,7 @@ public class FarmLot {
             this.crop = new Crop();
             this.isPlowed = false;
             this.occupancy = "Empty";
-            System.out.println("Successfully harvested " + yieldNum + " number of crops! You gained "
-                    + finalHarvestPrice + " coins.");
+            System.out.println("Successfully harvested " + yieldNum + " number of crops! You gained " + finalHarvestPrice + " coins.");
         } else if (this.occupancy.equals("Empty")) // there is no crop
             System.out.println("There is no crop in this lot.");
         else if (this.occupancy.equals("Rock"))
@@ -236,8 +235,7 @@ public class FarmLot {
             if (this.crop.getTillHarvest() == 1 && this.crop.getFertilizerLevel() < this.crop.getFertilizerNeed())
                 System.out.println("NOTIF: The  needs more fertilizer or else it'll wither tomorrow!");
             if (this.crop.getCanHarvest())
-                System.out
-                        .println("NOTIF: The  can be harvested! Please harvest it in the day or else it will wither!!");
+                System.out.println("NOTIF: The  can be harvested! Please harvest it in the day or else it will wither!!");
             if (this.crop.getIsWithered())
                 System.out.println("NOTIF: The  has withered. It seems it needs to be dug out.");
         }
@@ -297,8 +295,7 @@ public class FarmLot {
      * player.
      */
     public void display() {
-        if (this.occupancy.equals("Crop")) // there is a crop inside the lot
-        {
+        if (this.occupancy.equals("Crop")) { // there is a crop inside the lot
             System.out.println("________________");
             System.out.println("|              |");
             System.out.println("| ..        .. |");
@@ -309,10 +306,8 @@ public class FarmLot {
             System.out.println("|   ( Crop  )  |");
             System.out.println("|    (     )   |");
             System.out.println("______\\___/_____");
-        } else if (this.occupancy.equals("Empty")) // the lot is empty
-        {
-            if (this.isPlowed) // the lot is plowed
-            {
+        } else if (this.occupancy.equals("Empty")) { // the lot is empty
+            if (this.isPlowed) { // the lot is plowed
                 System.out.println("________________");
                 System.out.println("|| || || || || |");
                 System.out.println("|| || || || || |");
@@ -323,8 +318,7 @@ public class FarmLot {
                 System.out.println("|| || || || || |");
                 System.out.println("|| || || || || |");
                 System.out.println("________________");
-            } else // the lot is not plowed
-            {
+            } else { // the lot is not plowed
                 System.out.println("________________");
                 System.out.println("|              |");
                 System.out.println("|              |");
@@ -336,8 +330,7 @@ public class FarmLot {
                 System.out.println("|              |");
                 System.out.println("________________");
             }
-        } else if (this.occupancy.equals("Rock")) // the lot has a rock
-        {
+        } else if (this.occupancy.equals("Rock")) { // the lot has a rock
             System.out.println("________________");
             System.out.println("|              |");
             System.out.println("|    .--.      |");

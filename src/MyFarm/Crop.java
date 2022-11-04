@@ -88,7 +88,6 @@ public class Crop {
                 this.yieldUpperBound = 2;
                 this.sellPrice = 6;
                 // seed cost is 5
-                // selling price is 6
                 // experience is 5
                 break;
             }
@@ -106,7 +105,6 @@ public class Crop {
                 this.yieldUpperBound = 2;
                 this.sellPrice = 9;
                 // seed cost is 10
-                // selling price is 9
                 // experience is 7.5
                 break;
             }
@@ -124,7 +122,6 @@ public class Crop {
                 this.yieldUpperBound = 10;
                 this.sellPrice = 3;
                 // seed cost is 20
-                // selling price is 3
                 // experience is 12.5
                 break;
             }
@@ -142,7 +139,6 @@ public class Crop {
                 this.yieldUpperBound = 1;
                 this.sellPrice = 5;
                 // seed cost is 5
-                // selling price is 5
                 // experience is 2.5
                 break;
             }
@@ -160,7 +156,6 @@ public class Crop {
                 this.yieldUpperBound = 1;
                 this.sellPrice = 9;
                 // seed cost is 10
-                // selling price is 9
                 // experience is 5
                 break;
             }
@@ -178,7 +173,6 @@ public class Crop {
                 this.yieldUpperBound = 1;
                 this.sellPrice = 19;
                 // seed cost is 20
-                // selling price is 19
                 // experience is 7.5
                 break;
             }
@@ -214,7 +208,6 @@ public class Crop {
                 this.yieldUpperBound = 15;
                 this.sellPrice = 5;
                 // seed cost is 200
-                // selling price is 5
                 // experience is 25
                 break;
             }
@@ -271,66 +264,130 @@ public class Crop {
         }
     }
 
+    /**
+     * This is the getter method for the crop type
+     * @return The type of crop
+     */
     public String getCropType() {
         return cropType;
     }
 
+    /**
+     * This is the getter method for the seed name
+     * @return The name of the crop
+     */
     public String getSeedName() {
         return seedName;
     }
 
+    /**
+     * This is the getter method for the water level
+     * @return The amount of times the crop was watered
+     */
     public int getWaterLevel() {
         return waterLevel;
     }
 
+    /**
+     * This is the getter method for the water need
+     * @return The amount of times the crop was watered needed for it to survive
+     */
     public int getWaterNeed() {
         return waterNeed;
     }
 
+    /**
+     * This is the getter method for the water bonus limit
+     * @return The water bonus limit of the crop
+     */
     public int getWaterBonus() {
         return waterBonus;
     }
 
+    /**
+     * This is the getter method for the fertilizer level
+     * @return The amount of times the crop has been fertilized
+     */
     public int getFertilizerLevel() {
         return fertilizerLevel;
     }
 
+    /**
+     * This is the getter method for the fertilizer need
+     * @return The amount of fertilizer needed for the crop to survive
+     */
     public int getFertilizerNeed() {
         return fertilizerNeed;
     }
 
+    /**
+     * This is the getter method for the fertilzer bonus limit
+     * @return The fertilizer bonus limit of the crop
+     */
     public int getFertilizerBonus() {
         return fertilizerBonus;
     }
 
+    /**
+     * This is the getter method for the days till harvest
+     * @return The amount of days before the crop is ready for harvest
+     */
     public int getTillHarvest() {
         return tillHarvest;
     }
 
+    /**
+     * This is the getter method for getting the yield lower bound
+     * @return The minimum amount of yield the crop can yield
+     */
     public int getYieldLowerBound() {
         return yieldLowerBound;
     }
 
+    /**
+     * This is the getter method for getting the yield upper bound
+     * @return The maximum amount of yield the crop can yield
+     */
     public int getYieldUpperBound() {
         return yieldUpperBound;
     }
 
+    /**
+     * This is the getter method for CanHarvest Boolean
+     * @return Whether the crop is ready for harvest or not
+     */
     public Boolean getCanHarvest() {
         return canHarvest;
     }
 
+    /**
+     * This is the getter method for the selling price of the crop
+     * @return The amount of coins the crop is sold for
+     */
     public int getSellPrice() {
         return this.sellPrice;
     }
 
+    /**
+     * This is the getter method for IsWithered boolean
+     * @return Whether the crop is withered or not
+     */
     public Boolean getIsWithered() {
         return isWithered;
     }
 
+    /**
+     * This is the setter method for water level
+     * @param waterLevel The amount of times the crop has been watered
+     */
     public void setWaterLevel(int waterLevel) {
         this.waterLevel = waterLevel;
     }
 
+    /**
+     * This is the setter method for fertilizer level
+     * @param fertilizerLevel The amount of times the crop has been fertilized
+     */
     public void setFertilizerLevel(int fertilizerLevel) {
         this.fertilizerLevel = fertilizerLevel;
     }

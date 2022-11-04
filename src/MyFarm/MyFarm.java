@@ -154,6 +154,6 @@ public class MyFarm {
                 gameOver = true; // end game
             }
         }
-        sc.close();
+        sc.close(); // closes scanner when game ends
     }
 }

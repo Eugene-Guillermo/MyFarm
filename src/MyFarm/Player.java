@@ -5,7 +5,7 @@ package MyFarm;
  *
  * @author Eugene Guillermo
  * @author Johann Uytanlet
- * @version 1.2
+ * @version 1.3
  */
 public class Player {
     /**
@@ -19,7 +19,7 @@ public class Player {
     /**
      * The level player is at, used to check if player can "upgrade"
      */
-    private int level = 1;
+    private int level = 0;
     /**
      * The rank of the player.
      */
@@ -38,7 +38,7 @@ public class Player {
 
     /**
      * Class Constructor specifying the name of the Player
-     * 
+     *
      * @param name specified name
      */
     public Player(String name) {
@@ -47,7 +47,7 @@ public class Player {
 
     /**
      * Gives player experience, also calculates if the player leveled up
-     * 
+     *
      * @param expGained amount of experience gained
      */
     public void gainExperience(double expGained) {
@@ -57,55 +57,56 @@ public class Player {
 
     /**
      * Checks if player can rank up, if player is able to, player will rank up
+     * Displays the success of the action through a String
+     * The String also includes HTML styling
+     * String returned is intended to be received by the addNotif() function
+     * that is found in the FarmFrame class
+     *
+     * @return in String form, the success or failure of classUpgrade action
      */
-    public void classUpgrade() {
+    public String classUpgrade() {
 
         if (this.farmerType.equals("Farmer")) {
             if (this.level >= 5)
                 if (this.objectCoin >= 200) {
-                    System.out.println(this.name + ", you have successfully upgraded into a Registered Farmer!");
                     this.farmerType = "Registered Farmer";
                     this.objectCoin -= 200;
+                    return "G: " + this.name + ", you have successfully upgraded into a Registered Farmer!";
                 } else
-                    System.out
-                            .println(this.name + ", you don't have enough coins to upgrade into a Registered Farmer.");
+                    return "N: " + this.name + ", you don't have enough coins to upgrade into a Registered Farmer.";
             else
-                System.out.println(
-                        this.name + ", you are currently too low of a level to upgrade into a Registered Farmer.");
+                return "N: " + this.name + ", you are currently too low of a level to upgrade into a Registered Farmer.";
 
         } else if (this.farmerType.equals("Registered Farmer")) {
             if (this.level >= 10) {
                 if (this.objectCoin >= 300) {
-                    System.out.println(this.name + ", you have successfully upgraded into a Distinguished Farmer!");
                     this.farmerType = "Distinguished Farmer";
                     this.objectCoin -= 300;
+                    return "G: " + this.name + ", you have successfully upgraded into a Distinguished Farmer!";
                 } else
-                    System.out.println(
-                            this.name + ", you don't have enough coins to upgrade into a Distinguished Farmer.");
+                    return "N: " + this.name + ", you don't have enough coins to upgrade into a Distinguished Farmer.";
             } else
-                System.out.println(
-                        this.name + ", you are currently too low of a level to upgrade into a Distinguished Farmer.");
+                return "N: " + this.name + ", you are currently too low of a level to upgrade into a Distinguished Farmer.";
 
         } else if (this.farmerType.equals("Distinguished Farmer")) {
             if (this.level >= 15)
                 if (this.objectCoin >= 400) {
-                    System.out.println(this.name + ", you have successfully upgraded into a Legendary Farmer!");
                     this.farmerType = "Legendary Farmer";
                     this.objectCoin -= 400;
+                    return "G: " + this.name + ", you have successfully upgraded into a Legendary Farmer!";
                 } else
-                    System.out.println(this.name + ", you don't have enough coins to upgrade into a Legendary Farmer.");
+                    return "N: " + this.name + ", you don't have enough coins to upgrade into a Legendary Farmer.";
             else
-                System.out.println(
-                        this.name + ", you are currently too low of a level to upgrade into a Legendary Farmer.");
+                return "N: " + this.name + ", you are currently too low of a level to upgrade into a Legendary Farmer.";
         } else if (this.farmerType.equals("Legendary Farmer"))
-            System.out.println(this.name + ", you are already at the highest rank.");
+            return "W: " + this.name + ", you are already at the highest rank.";
         else
-            System.out.println("Oh no! There seems to have been some kind of error.");
+            return "C: Oh no! There seems to have been some kind of error.";
     }
 
     /**
      * Gives player money
-     * 
+     *
      * @param moneyGained specified amount of money
      */
     public void earnCoin(double moneyGained) {
@@ -114,7 +115,7 @@ public class Player {
 
     /**
      * Takes money from player
-     * 
+     *
      * @param moneyUsed specified amount of money
      */
     public void spendCoin(double moneyUsed) {
@@ -122,8 +123,8 @@ public class Player {
     }
 
     /**
-     * the getter function of the coin attribute
-     * 
+     * The getter function of the coin attribute
+     *
      * @return amount of money player has
      */
     public double getCoin() {
@@ -131,9 +132,8 @@ public class Player {
     }
 
     /**
-     * the getter function of the current sell bonus of the player based on player
-     * rank
-     * 
+     * The getter function of the current sell bonus of the player based on player rank
+     *
      * @return amount of sell bonus
      */
     public int getSellBonus() {
@@ -148,9 +148,8 @@ public class Player {
     }
 
     /**
-     * the getter function of the current bonus water bonus of the player based on
-     * player rank
-     * 
+     * The getter function of the current bonus water bonus of the player based on player rank
+     *
      * @return current bonus water bonus
      */
     public int getWaterBonusBonus() {
@@ -163,9 +162,9 @@ public class Player {
     }
 
     /**
-     * the getter function of the current bonus fertilizer bonus of the player based
-     * on the player rank
-     * 
+     * The getter function of the current bonus fertilizer bonus of the player
+     * based on the player rank
+     *
      * @return current bonus Fertilizer bonus
      */
     public int getFertilizerBonusBonus() {
@@ -176,9 +175,9 @@ public class Player {
     }
 
     /**
-     * the getter function of the current seed discount of the player based on the
-     * player rank
-     * 
+     * The getter function of the current seed discount of the player
+     * based on the player rank
+     *
      * @return current seed discount
      */
     public int getSeedDiscount() {
@@ -194,17 +193,41 @@ public class Player {
     }
 
     /**
-     * Displays on terminal the crucial information of the player
+     * The setter function of the Player's name
+     *
+     * @param name Player's new name
      */
-    public void displayPlayerStatus() {
-        System.out.println(name);
-        System.out.println("______________________________________");
-        System.out.println("Farmer Rank: " + this.farmerType);
-        System.out.println("Object Coins: " + this.objectCoin);
-        System.out.println("Level: " + this.level + "\t" + (this.experience % 100) + "/100");
-        System.out.println("The bonus water limit bonus is " + getWaterBonusBonus());
-        System.out.println("The bonus fertilizer limit bonus is " + getFertilizerBonusBonus());
-        System.out.println("The bonus seed discount is " + getSeedDiscount());
-        System.out.println();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * The getter function of the Player's name
+     *
+     * @return the Player's name
+     */
+    public String getName(){
+        return this.name;
+    }
+
+    /**
+     * Displays the crucial information of the player through a String
+     * The String also includes HTML styling
+     * String returned is intended to be received by the setText() function
+     * for the profileLabelRight JLabel that is found in the FarmFrame class
+     *
+     * @return in String form, the information of this player
+     */
+    public String displayPlayerStatus() {
+
+        String playerInfo = "<table style=\"width:100%; border: 1px solid;\">";
+        playerInfo = playerInfo.concat("<tr><th style=\"text-align:right\">Player Info</th></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">Farmer Rank:</th><td style=\"border: 1px solid\">" + this.farmerType + "</td></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">Object Coins:</th><td style=\"border: 1px solid\">" + this.objectCoin + "</td></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">Level:</th><td style=\"border: 1px solid\">" + this.level + "     | " + (this.experience % 100) + "/100" + "</td></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">The bonus water limit bonus is </th><td style=\"border: 1px solid\">" + this.getWaterBonusBonus() + "</td></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">The bonus fertilizer limit bonus is</th><td style=\"border: 1px solid\">" + this.getFertilizerBonusBonus() + "</td></tr>");
+        playerInfo = playerInfo.concat("<tr><th style=\"border: 1px solid\">The bonus seed discount is</th><td style=\"border: 1px solid\">" + this.getSeedDiscount() + "</td></tr>");
+        return playerInfo;
     }
 }

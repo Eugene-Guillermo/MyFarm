@@ -1,35 +1,39 @@
 package MyFarm;
 
 /**
- * A lot in a field needs something to be put inside.
- * This object simulates a or agriculture.
+ * There must something inside a lot in a field.
+ * This object simulates a crop.
  * A FarmLot objects at any given time holds exactly one
  *
  * @author Eugene Guillermo
  * @author Johann Uytanlet
- * @version 1.2
+ * @version 1.3
  */
 public class Crop {
     /**
-     * cropType is the type of the . Example: Is it a root ?
-     * seedName is the name of the species of . Example: Is it a Turnip or a Turnips
+     * cropType is the type of the crop. Example: Is it a root crop?
+     * seedName is the name of the species of crop. Example: Is it a Turnip or a Turnips
      */
     private String cropType, seedName;
     /**
-     * waterLevel is the current amount of water inside the .
-     * waterNeed is the amount of water the needs to live.
-     * waterBonus is the amount of water the needs to produce extra.
-     * fertilizerLevel is the current amount of fertilizer inside the .
-     * fertilizerNeed is the amount of fertilizer the needs to live.
-     * fertilizerBonus is the amount of fertilizer the needs to produce extra.
-     * age is how old the is IN DAYS.
+     * waterLevel is the current amount of water inside the crop.
+     * waterNeed is the amount of water the crop needs to live.
+     * waterBonus is the amount of water the crop needs to produce extra.
+     * fertilizerLevel is the current amount of fertilizer inside the crop.
+     * fertilizerNeed is the amount of fertilizer the crop needs to live.
+     * fertilizerBonus is the amount of fertilizer the crop needs to produce extra.
+     * age is how old the crop is IN DAYS.
      * tillHarvest is how many days TILL HARVEST.
      * yieldLowerBound is the lower bound of how much produce is made.
      * yieldUpperBound is the upper bound of how much produce is made.
      * sellPrice is how much is the worth per produce.
      */
     private int waterLevel, waterNeed, waterBonus, fertilizerLevel, fertilizerNeed, fertilizerBonus, age, tillHarvest,
-            yieldLowerBound, yieldUpperBound, sellPrice;
+            yieldLowerBound, yieldUpperBound, sellPrice, seedCost;
+    /**
+     * experience is the amount of experience that the crop gives to the Player when harvested
+     */
+    private double experience;
     /**
      * canHarvest answers if the crop CAN be HARVESTED?
      * isWithered answers if the crop IS WITHERED?
@@ -54,11 +58,13 @@ public class Crop {
         this.isWithered = false;
         this.yieldLowerBound = 0;
         this.yieldUpperBound = 0;
+        this.seedCost = 0;
+        this.experience = 0;
     }
 
     /**
      * Class Constructor specifying the species of the .
-     * 
+     *
      * @param Name specified species
      */
     public Crop(String Name) {
@@ -67,16 +73,15 @@ public class Crop {
 
     /**
      * Changes the crop to the specified species
-     * 
+     *
      * @param Name specified species
      */
     public void plantCrop(String Name) {
         this.seedName = Name;
-
-        // Assigns stats of the based on the name given.
+        // Assigns stats of the crop based on the name given.
         switch (seedName) {
             case "Turnip": {
-                this.cropType = "Root ";
+                this.cropType = "Root";
                 this.tillHarvest = 2;
                 this.waterLevel = 0;
                 this.fertilizerLevel = 0;
@@ -87,13 +92,13 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 2;
                 this.sellPrice = 6;
-                // seed cost is 5
-                // experience is 5
+                this.seedCost = 5;
+                this.experience = 5;
                 break;
             }
 
             case "Carrot": {
-                this.cropType = "Root ";
+                this.cropType = "Root";
                 this.tillHarvest = 3;
                 this.waterLevel = 0;
                 this.fertilizerLevel = 0;
@@ -104,13 +109,13 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 2;
                 this.sellPrice = 9;
-                // seed cost is 10
-                // experience is 7.5
+                this.seedCost = 10;
+                this.experience = 7.5;
                 break;
             }
 
             case "Potato": {
-                this.cropType = "Root ";
+                this.cropType = "Root";
                 this.tillHarvest = 5;
                 this.waterLevel = 0;
                 this.fertilizerLevel = 0;
@@ -121,8 +126,8 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 10;
                 this.sellPrice = 3;
-                // seed cost is 20
-                // experience is 12.5
+                this.seedCost = 20;
+                this.experience = 12.5;
                 break;
             }
 
@@ -138,8 +143,8 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 1;
                 this.sellPrice = 5;
-                // seed cost is 5
-                // experience is 2.5
+                this.seedCost = 5;
+                this.experience = 2.5;
                 break;
             }
 
@@ -155,8 +160,8 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 1;
                 this.sellPrice = 9;
-                // seed cost is 10
-                // experience is 5
+                this.seedCost = 10;
+                this.experience = 5;
                 break;
             }
 
@@ -172,8 +177,8 @@ public class Crop {
                 this.yieldLowerBound = 1;
                 this.yieldUpperBound = 1;
                 this.sellPrice = 19;
-                // seed cost is 20
-                // experience is 7.5
+                this.seedCost = 20;
+                this.experience = 7.5;
                 break;
             }
 
@@ -189,9 +194,8 @@ public class Crop {
                 this.yieldLowerBound = 5;
                 this.yieldUpperBound = 15;
                 this.sellPrice = 8;
-                // seed cost is 100
-                // selling price is 8
-                // experience is 25
+                this.seedCost = 100;
+                this.experience = 25;
                 break;
             }
 
@@ -207,11 +211,11 @@ public class Crop {
                 this.yieldLowerBound = 10;
                 this.yieldUpperBound = 15;
                 this.sellPrice = 5;
-                // seed cost is 200
-                // experience is 25
+                this.seedCost = 200;
+                this.experience = 25;
                 break;
             }
-
+            // set the crop to Nothing
             default: {
                 this.cropType = "Nothing";
                 this.seedName = "Nothing";
@@ -227,37 +231,39 @@ public class Crop {
                 this.isWithered = false;
                 this.yieldLowerBound = 0;
                 this.yieldUpperBound = 0;
+                this.seedCost = 0;
+                this.experience = 0;
             }
         }
     }
 
     /**
-     * Ages the by one day.
-     * Also checks whether the is already harvestable or withered
+     * Ages the crop the by one day.
+     * Also checks whether the crop is already harvestable or withered
      */
     public void age() {
         // ages by 1 day
         this.age++;
-        // if the was harvestable the other day but was not harvested
+        // if the crop was harvestable the other day but was not harvested
         // the becomes withered
         if (this.canHarvest) {
             this.canHarvest = false;
             this.isWithered = true;
         }
 
-        // if the is not yet harvestable
+        // if the crop is not yet harvestable
         else {
             // decrement the number of days till it is Harvestable
             this.tillHarvest--;
             // if the number of days till harvest is 0, it is harvestable
             if (this.tillHarvest == 0) {
-                // not enough water, the withers.
+                // not enough water, the crop withers.
                 if (this.waterLevel < this.waterNeed)
                     this.isWithered = true;
-                // not enough fertilizer, the withers.
+                    // not enough fertilizer, the crop withers.
                 else if (this.fertilizerLevel < this.fertilizerNeed)
                     this.isWithered = true;
-                // sufficient levels of water and fertilizer, the is harvestable.
+                    // sufficient levels of water and fertilizer, the crop is harvestable.
                 else
                     this.canHarvest = true;
             }
@@ -265,7 +271,26 @@ public class Crop {
     }
 
     /**
+     * This is the getter method for the amount of experience the crop gives
+     *
+     * @return amount of experience
+     */
+    public double getExperience() {
+        return experience;
+    }
+
+    /**
+     * This is the getter method for the cost to buy the seeds of this species of crops
+     *
+     * @return cost of seed
+     */
+    public int getSeedCost() {
+        return seedCost;
+    }
+
+    /**
      * This is the getter method for the crop type
+     *
      * @return The type of crop
      */
     public String getCropType() {
@@ -274,6 +299,7 @@ public class Crop {
 
     /**
      * This is the getter method for the seed name
+     *
      * @return The name of the crop
      */
     public String getSeedName() {
@@ -282,6 +308,7 @@ public class Crop {
 
     /**
      * This is the getter method for the water level
+     *
      * @return The amount of times the crop was watered
      */
     public int getWaterLevel() {
@@ -290,6 +317,7 @@ public class Crop {
 
     /**
      * This is the getter method for the water need
+     *
      * @return The amount of times the crop was watered needed for it to survive
      */
     public int getWaterNeed() {
@@ -298,6 +326,7 @@ public class Crop {
 
     /**
      * This is the getter method for the water bonus limit
+     *
      * @return The water bonus limit of the crop
      */
     public int getWaterBonus() {
@@ -306,6 +335,7 @@ public class Crop {
 
     /**
      * This is the getter method for the fertilizer level
+     *
      * @return The amount of times the crop has been fertilized
      */
     public int getFertilizerLevel() {
@@ -314,6 +344,7 @@ public class Crop {
 
     /**
      * This is the getter method for the fertilizer need
+     *
      * @return The amount of fertilizer needed for the crop to survive
      */
     public int getFertilizerNeed() {
@@ -321,7 +352,8 @@ public class Crop {
     }
 
     /**
-     * This is the getter method for the fertilzer bonus limit
+     * This is the getter method for the fertilizer bonus limit
+     *
      * @return The fertilizer bonus limit of the crop
      */
     public int getFertilizerBonus() {
@@ -330,6 +362,7 @@ public class Crop {
 
     /**
      * This is the getter method for the days till harvest
+     *
      * @return The amount of days before the crop is ready for harvest
      */
     public int getTillHarvest() {
@@ -338,6 +371,7 @@ public class Crop {
 
     /**
      * This is the getter method for getting the yield lower bound
+     *
      * @return The minimum amount of yield the crop can yield
      */
     public int getYieldLowerBound() {
@@ -346,6 +380,7 @@ public class Crop {
 
     /**
      * This is the getter method for getting the yield upper bound
+     *
      * @return The maximum amount of yield the crop can yield
      */
     public int getYieldUpperBound() {
@@ -354,6 +389,7 @@ public class Crop {
 
     /**
      * This is the getter method for CanHarvest Boolean
+     *
      * @return Whether the crop is ready for harvest or not
      */
     public Boolean getCanHarvest() {
@@ -362,6 +398,7 @@ public class Crop {
 
     /**
      * This is the getter method for the selling price of the crop
+     *
      * @return The amount of coins the crop is sold for
      */
     public int getSellPrice() {
@@ -370,6 +407,7 @@ public class Crop {
 
     /**
      * This is the getter method for IsWithered boolean
+     *
      * @return Whether the crop is withered or not
      */
     public Boolean getIsWithered() {
@@ -378,6 +416,7 @@ public class Crop {
 
     /**
      * This is the setter method for water level
+     *
      * @param waterLevel The amount of times the crop has been watered
      */
     public void setWaterLevel(int waterLevel) {
@@ -386,6 +425,7 @@ public class Crop {
 
     /**
      * This is the setter method for fertilizer level
+     *
      * @param fertilizerLevel The amount of times the crop has been fertilized
      */
     public void setFertilizerLevel(int fertilizerLevel) {
@@ -393,19 +433,38 @@ public class Crop {
     }
 
     /**
-     * Displays the statistics of the in the terminal
+     * This is the getter method for the age of the crop
+     *
+     * @return how old the crop is
      */
-    public void displayInfo() {
-        System.out.println("______________________________________");
-        System.out.println("|              Info              |");
-        System.out.println("--------------------------------------");
-        System.out.println(" Name: " + this.seedName);
-        System.out.println(" Type: " + this.cropType);
-        System.out.println("Age: " + this.age);
-        System.out.println("Current Water Level / Fertilizer Level: " + this.waterLevel + " / " + this.fertilizerLevel);
-        System.out.println("Water Need | Bonus Limit: " + this.waterNeed + " | " + this.waterBonus);
-        System.out.println("Fertilizer Need | Bonus Limit: " + this.fertilizerNeed + " | " + this.fertilizerBonus);
-        System.out.println("Days Till Harvest: " + this.tillHarvest);
-        System.out.println("Possible Number of Produce: " + this.yieldLowerBound + " to " + this.yieldUpperBound);
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * Displays the statistics of the crop with HTML styling included through a String
+     * String returned is intended to be called by the inform() function
+     * that is found in the FarmLot class
+     * The String also includes HTML styling
+     *
+     * @return in String form, the information of this crop
+     */
+    public String cropInfo() {
+
+        String cropInfo = "<table style=\"width:100%; border: 1px solid;\">";
+        cropInfo = cropInfo.concat("<tr><th style=\"text-align:right\">Crop</th></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Name</th><td style=\"border: 1px solid\">" + this.seedName + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Type</th><td style=\"border: 1px solid\">" + this.cropType + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Age</th><td style=\"border: 1px solid\">" + this.age + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Water Level</th><td style=\"border: 1px solid\">" + this.waterLevel + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Water Need</th><td style=\"border: 1px solid\">" + this.waterNeed + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Water Bonus Limit</th><td style=\"border: 1px solid\">" + this.waterBonus + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Fertilizer Level</th><td style=\"border: 1px solid\">" + this.fertilizerLevel + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Fertilizer Need</th><td style=\"border: 1px solid\">" + this.fertilizerNeed + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Fertilizer Bonus Limit</th><td style=\"border: 1px solid\">" + this.fertilizerBonus + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Days Till Harvest</th><td style=\"border: 1px solid\">" + this.tillHarvest + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Withered Status</th><td style=\"border: 1px solid\">" + this.getIsWithered() + "</td></tr>");
+        cropInfo = cropInfo.concat("<tr><th style=\"border: 1px solid\">Possible Yield</th><td style=\"border: 1px solid\">" + this.yieldLowerBound + "-" + yieldUpperBound + "</td></tr></table></html>");
+        return cropInfo;
     }
 }
